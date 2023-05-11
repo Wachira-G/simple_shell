@@ -14,8 +14,11 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 int _ensure_capacity(char **lineptr, size_t *n, size_t new_size);
 int _read_char(FILE *stream, char *c);
 
+char *shell_strtok(char *str_line, const char *delimiter);
+
 /** String helper functions */
 int _fileno(FILE *stream);
 int _fgetc(FILE *stream);
+char *_strpbrk(char *str, const char *accept);
 
 #endif
