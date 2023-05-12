@@ -68,3 +68,13 @@ char *_strpbrk(char *str, const char *accept)
 	}
 	return (NULL);
 }
+
+/**
+ *_puts - Print a string.
+ *@str: String.
+ *Return: Void.
+ */
+void _puts(char *str)
+{
+	write(STDOUT_FILENO, str, strlen(str));
+}
