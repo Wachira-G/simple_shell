@@ -27,6 +27,8 @@ char **tokenize_line(char *line);
 int _fileno(FILE *stream);
 int _fgetc(FILE *stream);
 char *_strpbrk(char *str, const char *accept);
+size_t _strlen(const char *s);
+char *_strcpy(char *dest, const char *src);
 void _puts(char *str);
 
 #endif
