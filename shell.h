@@ -20,5 +20,7 @@ char *shell_strtok(char *str_line, const char *delimiter);
 int _fileno(FILE *stream);
 int _fgetc(FILE *stream);
 char *_strpbrk(char *str, const char *accept);
+size_t _strlen(const char *s);
+char *_strcpy(char *dest, const char *src);
 
 #endif
