@@ -30,5 +30,14 @@ char *_strpbrk(char *str, const char *accept);
 size_t _strlen(const char *s);
 char *_strcpy(char *dest, const char *src);
 void _puts(char *str);
+int _strcmp(char *s1, char *s2);
+char *_strcat(char *dest, char *src);
+
+/* builtins */
+int cd_func(char **args);
+int echo_func(char **args);
+int pwd_func(char **args);
+void exit_func(char **args);
+int env_func(char **args);
 
 #endif
