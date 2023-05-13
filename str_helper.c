@@ -85,7 +85,7 @@ size_t _strlen(const char *s)
 		return (0);
 	while (*p != '\0')
 		p++;
-	len = (size_t)(p-s); /* diff of 2 pointers is ptrdiff type */
+	len = (size_t) (p - s); /* diff of 2 pointers is ptrdiff type */
 	return (len);
 }
 
@@ -103,7 +103,7 @@ char *_strcpy(char *dest, const char *src)
 	int i;
 
 	if (src == NULL)
-		return NULL;
+		return (NULL);
 	for (i = 0; src[i] != '\0'; i++)
 		dest[i] = src[i];
 	dest[i] = '\0'; /* null terminator to dest */
