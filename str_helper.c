@@ -68,3 +68,44 @@ char *_strpbrk(char *str, const char *accept)
 	}
 	return (NULL);
 }
+
+/**
+ * _strlen - calculates the lenght of a string
+ * @s: the string
+ *
+ * Return: the length of a string
+ * (number of bytes in the string pointed to by s)
+ */
+size_t _strlen(const char *s)
+{
+	size_t len = 0;
+	const char *p = s;
+
+	if (s == NULL)
+		return (0);
+	while (*p != '\0')
+		p++;
+	len = (size_t)(p-s); /* diff of 2 pointers is ptrdiff type */
+	return (len);
+}
+
+/**
+ * _strcpy - copies the string pointed to by src,
+ * including the terminating null byte ('\0'),
+ * to the buffer pointed to by dest.
+ * @dest: pointer to buffer where we will store the string
+ * @src: pointer to location of string
+ *
+ * Return: a pointer to the destination string dest.
+ */
+char *_strcpy(char *dest, const char *src)
+{
+	int i;
+
+	if (src == NULL)
+		return NULL;
+	for (i = 0; src[i] != '\0'; i++)
+		dest[i] = src[i];
+	dest[i] = '\0'; /* null terminator to dest */
+	return (dest);
+}
