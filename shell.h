@@ -20,6 +20,10 @@ int _read_char(FILE *stream, char *c);
 
 char *shell_strtok(char *str_line, const char *delimiter);
 
+int execute(char **args);
+void handle_shell_operators(char **args);
+void execute_external_command(char **args);
+
 /** Tokenize string line */
 char **tokenize_line(char *line);
 
@@ -30,5 +34,9 @@ char *_strpbrk(char *str, const char *accept);
 size_t _strlen(const char *s);
 char *_strcpy(char *dest, const char *src);
 void _puts(char *str);
+int _strcmp(char *s1, char *s2);
+
+/* Environmental */
+char *_getenv(char *env_name);
 
 #endif
