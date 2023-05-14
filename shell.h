@@ -9,6 +9,7 @@
 #include<unistd.h>
 #include<sys/types.h>
 #include<sys/wait.h>
+#include <stdarg.h>
 
 #define LINE_BUF_SIZE 128
 #define BUFF_SIZE 1024
@@ -35,8 +36,25 @@ size_t _strlen(const char *s);
 char *_strcpy(char *dest, const char *src);
 void _puts(char *str);
 int _strcmp(char *s1, char *s2);
+void reverse(char *str);
+void _itoa(int n, char *str);
+int _sprintf(char *str, const char *format, ...);
+int _strncmp(const char *str1, char *str2, size_t size);
+int _atoi(char *s);
+char *_strcat(char *dest, char *src);
 
 /* Environmental */
 char *_getenv(char *env_name);
+int _setenv(char *name, char *value, int over);
+
+/* builtins */
+int cd_func(char **args);
+int echo_func(char **args);
+int pwd_func(char **args);
+void exit_func(char **args);
+int env_func(char **args);
+
+/* Path */
+char *get_path(char *command);
 
 #endif

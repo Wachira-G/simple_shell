@@ -8,5 +8,5 @@
  */
 void handle_shell_operators(char **args)
 {
-    execute_external_command(args);
+	execute_external_command(args);
 }

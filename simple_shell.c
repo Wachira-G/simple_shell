@@ -35,7 +35,7 @@ static void sig_handler(int signo)
 int main(int argc, char **argv, char **env)
 {
 	size_t buf = 0;
-	int isatty_flag = isatty(STDIN_FILENO), status;
+	int isatty_flag = isatty(STDIN_FILENO);
 	char *line = NULL, **args = NULL;
 
 	(void)argc, (void)argv, (void)env;
@@ -56,7 +56,7 @@ int main(int argc, char **argv, char **env)
 		if (line[_strlen(line) - 1] == '\n')
 			line[_strlen(line) - 1] = '\0';
 		args = tokenize_line(line);
-		status = execute(args);
+		execute(args);
 		free(args);
 	}
 	return (0);
