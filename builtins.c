@@ -27,7 +27,7 @@ int pwd_func(__attribute__((unused)) char **args)
 	char *pwd = NULL;
 
 	pwd = _getenv("PWD");
-	_strcat(pwd, "\n"); /* should we check this on fail? */
+	/*_strcat(pwd, "\n"); should we check this on fail? */
 	len = _strlen(pwd);
 	if (pwd != NULL)
 	{
@@ -35,6 +35,12 @@ int pwd_func(__attribute__((unused)) char **args)
 		if (nwrite == -1)
 		{
 			perror("pwd write fail: ");
+			return (1);
+		}
+		nwrite = write(STDOUT_FILENO, "\n", 1); /* new line */
+		if (nwrite == -1)
+		{
+			perror("name write fail: ");
 			return (1);
 		}
 		return (0);
@@ -77,6 +83,12 @@ int echo_func(char **args)
 				}
 			}
 			ptr++;
+		}
+		nwrite = write(STDOUT_FILENO, "\n", 1); /* newline */
+		if (nwrite == -1)
+		{
+			perror("name write fail: ");
+			return (1);
 		}
 		return (0);
 	}
