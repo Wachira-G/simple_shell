@@ -10,6 +10,7 @@
 #include<sys/types.h>
 #include<sys/wait.h>
 #include <stdarg.h>
+#include <errno.h>
 
 #define LINE_BUF_SIZE 128
 #define BUFF_SIZE 1024

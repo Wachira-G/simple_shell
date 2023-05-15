@@ -12,20 +12,19 @@ void execute_external_command(char **args)
 	int status;
 	char *path;
 
-	pid = fork();
+	path = get_path(args[0]);
+	if (path == NULL)
+	{
+		_sprintf("%s: command not found\n", args[0]);
+		exit(EXIT_FAILURE);
+	}
 
+	pid = fork();
 	if (pid == 0)
 	{
-		path = get_path(args[0]);
-		if (path == NULL)
+		if (execve(path, args, NULL) == -1)
 		{
-			fprintf(stderr, "%s: command not found\n", args[0]);
-			exit(EXIT_FAILURE);
-		}
-
-		if (execve(path, args, 0) == -1)
-		{
-			perror("execve");
+			_sprintf("execve: %s\n", strerror(errno));
 			exit(EXIT_FAILURE);
 		}
 		free(path);
