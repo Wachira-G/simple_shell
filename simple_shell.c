@@ -10,12 +10,13 @@ static void sig_handler(int signo)
 {
 	if (signo == SIGINT)
 	{
-		_puts("\n$ ");
+		_puts("SIGNINT received, exiting...\n$ ");
+		exit(128 + signo);
 	}
 	else if (signo == SIGQUIT)
 	{
 		_puts("Quit (core dumped)\n");
-		exit(1);
+		exit(128 + signo);
 	}
 	else if (signo == EOF)
 	{
@@ -38,7 +39,7 @@ int main(int argc, char **argv, char **env)
 	int isatty_flag = isatty(STDIN_FILENO);
 	char *line = NULL, **args = NULL;
 
-	(void)argc, (void)argv, (void)env;
+	(void)argc, (void)argv;
 
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
@@ -64,7 +65,7 @@ int main(int argc, char **argv, char **env)
 		{
 			char **command = commands[i];
 
-			execute(command);
+			execute(command, env);
 		}
 
 		free_commands(commands);

@@ -23,7 +23,7 @@ int _read_char(FILE *stream, char *c);
 
 char *shell_strtok(char *str_line, const char *delimiter);
 
-int execute(char **args);
+int execute(char **args, char **env);
 void handle_shell_operators(char **args);
 void execute_external_command(char **args);
 

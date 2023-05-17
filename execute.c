@@ -1,12 +1,13 @@
 #include "shell.h"
 
 /**
- *execute - Execute corresponding command from the user input.
- *@args: Pointer to string elents.
+ * execute - Execute corresponding command from the user input.
+ * @args: Pointer to string elents.
+ * @env: pointer to environ variables.
  *
  *Return: An int inticating success or failer.
  */
-int execute(char **args)
+int execute(char **args, char **env)
 {
 	char *command = args[0];
 
@@ -25,7 +26,7 @@ int execute(char **args)
 	}
 	else if (_strcmp(command, "env") == 0)
 	{
-		env_func(args);
+		env_func(env);
 	}
 	else if (_strcmp(command, "pwd") == 0)
 	{

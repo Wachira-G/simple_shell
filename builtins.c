@@ -22,33 +22,40 @@ void exit_func(char **args)
  */
 int pwd_func(__attribute__((unused)) char **args)
 {
+	char *buffer = NULL;
 	ssize_t nwrite;
-	size_t len = 0;
-	char *pwd = NULL;
 
-	pwd = _getenv("PWD");
-	/*_strcat(pwd, "\n"); should we check this on fail? */
-	len = _strlen(pwd);
-	if (pwd != NULL)
+	buffer = malloc(PATH_MAX + 1);
+	if (buffer == NULL)
 	{
-		nwrite = write(STDOUT_FILENO, pwd, len);
-		if (nwrite == -1)
-		{
-			perror("pwd write fail: ");
-			return (1);
-		}
-		nwrite = write(STDOUT_FILENO, "\n", 1); /* new line */
-		if (nwrite == -1)
-		{
-			perror("name write fail: ");
-			return (1);
-		}
-		return (0);
+		perror("pwd buffer malloc fail");
+		return (EXIT_FAILURE);
 	}
-	perror(" pwd getenv fail: ");
-	return (1);
-}
 
+	if (getcwd(buffer, PATH_MAX) == NULL)
+	{
+		perror("getcwd pwd fail");
+		free(buffer);
+		return (EXIT_FAILURE);
+	}
+
+	nwrite = write(STDOUT_FILENO, buffer, _strlen(buffer));
+	if (nwrite == -1)
+	{
+		perror("pwd write fail");
+		free(buffer);
+		return (EXIT_FAILURE);
+	}
+	nwrite = write(STDOUT_FILENO, "\n", 1);
+	if (nwrite == -1)
+	{
+		perror("pwd write /n fail");
+		free(buffer);
+		return (EXIT_FAILURE);
+	}
+	free(buffer);
+	return (0);
+}
 
 /**
  * echo_func - implements the pwd shell builtin
@@ -106,7 +113,7 @@ int echo_func(char **args)
  */
 int cd_func(char **args)
 {
-	char *new_pwd, *old_pwd = getenv("OLDPWD");
+	char *new_pwd, *old_pwd = _getenv("OLDPWD");
 
 	/* cd alone or '~' */
 	if (args[1] == NULL || _strcmp(args[1], "~") == 0)
@@ -150,15 +157,15 @@ int cd_func(char **args)
 
 /**
  * env_func - implements the env builtin
- * @args: envp array passed from main or 'extern environ';
+ * @env: env array passed from main or 'extern environ';
  * Return: 0 on success and 1 on any fail
  *
  * limitation:
  * this does not update environment in case of new process or in case of chdir
  */
-int env_func(char **args)
+int env_func(char **env)
 {
-	char **ptr = args, *name = NULL;
+	char **ptr = env, *name = NULL;
 	ssize_t nwrite;
 	size_t len = 0;
 
@@ -185,6 +192,12 @@ int env_func(char **args)
 			}
 		}
 		ptr++;
+	}
+	nwrite = write(STDOUT_FILENO, "\n", 1);
+	if (nwrite == -1)
+	{
+		perror("name write fail: ");
+		return (1);
 	}
 	return (0);
 }

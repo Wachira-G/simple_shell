@@ -10,8 +10,8 @@ void execute_external_command(char **args)
 {
 	pid_t pid;
 	int status;
-	char *path, *command = get_filename(args[0]);
-	char *env[] = {"HOME", NULL};
+	char *command = get_filename(args[0]);
+	char *path, *env[] = {"HOME", NULL};
 
 	path = get_path(command);
 	if (path == NULL)
