@@ -10,12 +10,13 @@ static void sig_handler(int signo)
 {
 	if (signo == SIGINT)
 	{
-		_puts("\n$ ");
+		_puts("SIGNINT received, exiting...\n$ ");
+		exit(128 + signo);
 	}
 	else if (signo == SIGQUIT)
 	{
 		_puts("Quit (core dumped)\n");
-		exit(1);
+		exit(128 + signo);
 	}
 	else if (signo == EOF)
 	{
@@ -56,7 +57,7 @@ int main(int argc, char **argv, char **env)
 		if (line[_strlen(line) - 1] == '\n')
 			line[_strlen(line) - 1] = '\0';
 		args = tokenize_line(line);
-		execute(args);
+		execute(args, env);
 		free(args);
 	}
 	return (0);

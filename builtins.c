@@ -29,14 +29,14 @@ int pwd_func(__attribute__((unused)) char **args)
 	if (buffer == NULL)
 	{
 		perror("pwd buffer malloc fail");
-		return EXIT_FAILURE;
+		return (EXIT_FAILURE);
 	}
 
 	if (getcwd(buffer, PATH_MAX) == NULL)
 	{
 		perror("getcwd pwd fail");
 		free(buffer);
-		return EXIT_FAILURE;
+		return (EXIT_FAILURE);
 	}
 
 	nwrite = write(STDOUT_FILENO, buffer, _strlen(buffer));
@@ -44,17 +44,17 @@ int pwd_func(__attribute__((unused)) char **args)
 	{
 		perror("pwd write fail");
 		free(buffer);
-		return EXIT_FAILURE;
+		return (EXIT_FAILURE);
 	}
 	nwrite = write(STDOUT_FILENO, "\n", 1);
 	if (nwrite == -1)
 	{
 		perror("pwd write /n fail");
 		free(buffer);
-		return EXIT_FAILURE;
+		return (EXIT_FAILURE);
 	}
 	free(buffer);
-	return 0;
+	return (0);
 }
 
 /**
@@ -157,13 +157,13 @@ int cd_func(char **args)
 
 /**
  * env_func - implements the env builtin
- * @args: envp array passed from main or 'extern environ';
+ * @env: env array passed from main or 'extern environ';
  * Return: 0 on success and 1 on any fail
  *
  * limitation:
  * this does not update environment in case of new process or in case of chdir
  */
-int env_func(char **args)
+int env_func(char **env)
 {
 	char **ptr = args, *name = NULL;
 	ssize_t nwrite;

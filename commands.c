@@ -11,8 +11,7 @@ void execute_external_command(char **args)
 	pid_t pid;
 	int status;
 	char *command = get_filename(args[0]);
-	char *path;
-	char *env[] = {"HOME", NULL};
+	char *path, char *env[] = {"HOME", NULL};
 
 	path = get_path(command);
 	if (path == NULL)
@@ -22,7 +21,6 @@ void execute_external_command(char **args)
 		free(command);
 		return;
 	}
-
 	if (_strlen(command) > 0)
 	{
 		pid = fork();
@@ -44,8 +42,7 @@ void execute_external_command(char **args)
 		}
 		else
 		{
-			do
-			{
+			do {
 				waitpid(pid, &status, WUNTRACED);
 			} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 		}
