@@ -15,6 +15,7 @@
 #define LINE_BUF_SIZE 128
 #define BUFF_SIZE 1024
 #define TOKEN_DELIMETER " \t\r\n\a"
+#define MAX_TOKENS 100
 
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 int _ensure_capacity(char **lineptr, size_t *n, size_t new_size);
@@ -28,6 +29,9 @@ void execute_external_command(char **args);
 
 /** Tokenize string line */
 char **tokenize_line(char *line);
+void free_commands(char ***commands);
+char ***split_commands(char **tokens);
+void *_realloc(void *ptr, size_t size);
 
 /** String helper functions */
 int _fileno(FILE *stream);
@@ -39,10 +43,10 @@ void _puts(char *str);
 int _strcmp(char *s1, char *s2);
 void reverse(char *str);
 void _itoa(int n, char *str);
-int _sprintf(char *str, const char *format, ...);
 int _strncmp(const char *str1, char *str2, size_t size);
 int _atoi(char *s);
 char *_strcat(char *dest, char *src);
+char *_strdup(char *str);
 
 /* Environmental */
 char *_getenv(char *env_name);
@@ -58,5 +62,11 @@ int env_func(char **args);
 /* Path */
 char *get_path(char *command);
 char *get_filename(char *path);
+int _sprintf(char *str, const char *format, ...);
+
+/* sprintf helper */
+void handle_character(char **str, int *written, va_list *arg);
+void handle_integer(char **str, int *written, va_list *arg);
+void handle_string(char **str, int *written, va_list *arg);
 
 #endif

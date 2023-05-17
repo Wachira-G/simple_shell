@@ -35,25 +35,36 @@ char *get_path(char *command)
 	return (NULL);
 }
 
+/**
+ *get_filename - Get the filename path.
+ *@path: String path.
+ *Return: File path.
+ */
 char *get_filename(char *path)
 {
-    char* filename = strrchr(path, '/');
-    if (filename == NULL)
-    {
-        return strdup(path);
-    }
-    else
-    {
-        return strdup(filename + 1);
-    }
+	char *filename = strrchr(path, '/');
+
+	if (filename == NULL)
+	{
+		return (_strdup(path));
+	}
+	else
+	{
+		return (_strdup(filename + 1));
+	}
 }
 
-
+/**
+ *_sprintf -return formated string.
+ *@str: String
+ *@format: Formater.
+ *Return: Formated String.
+ */
 int _sprintf(char *str, const char *format, ...)
 {
 	va_list arg;
 	int written = 0;
-	char *s, *p;
+	char *s, c, *p;
 	int d;
 
 	va_start(arg, format);
@@ -71,30 +82,29 @@ int _sprintf(char *str, const char *format, ...)
 		switch (*format)
 		{
 		case 'c':
-			{
-				char c = va_arg(arg, int);
-				*str++ = c;
-				written++;
-			}
+			c = va_arg(arg, int);
+			*str++ = c;
+			written++;
 			break;
 		case 'd':
 			d = va_arg(arg, int);
-			p = (char *)malloc(32);
-			if (p == NULL) {
-				va_end(arg);
-				return -1;
+			p = (char *)malloc(12);
+			_itoa(d, p);
+			s = p;
+			while (*s)
+			{
+				*str++ = *s++;
+				written++;
 			}
-			snprintf(p, 32, "%d", d);
-			written += strlen(p);
-			strcpy(str, p);
-			str += strlen(p);
 			free(p);
 			break;
 		case 's':
 			s = va_arg(arg, char *);
-			written += strlen(s);
-			strcpy(str, s);
-			str += strlen(s);
+			while (*s)
+			{
+				*str++ = *s++;
+				written++;
+			}
 			break;
 		default:
 			*str++ = *format;
@@ -105,5 +115,5 @@ int _sprintf(char *str, const char *format, ...)
 	}
 	*str = '\0';
 	va_end(arg);
-	return written;
+	return (written);
 }

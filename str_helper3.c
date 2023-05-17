@@ -56,3 +56,22 @@ int _atoi(char *s)
 	}
 	return (num * sign);
 }
+
+/**
+ *_strdup - Duplicates a string.
+ *@str: String to duplicate.
+ *Return: Duplicated str.
+ */
+char *_strdup(char *str)
+{
+	size_t i, length = strlen(str) + 1;
+	char *duplicate = malloc(length * sizeof(char));
+
+	if (duplicate != NULL)
+	{
+		for (i = 0; i < length; i++)
+			duplicate[i] = str[i];
+	}
+
+	return (duplicate);
+}

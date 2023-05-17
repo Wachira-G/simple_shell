@@ -45,6 +45,9 @@ int main(int argc, char **argv, char **env)
 
 	while (1)
 	{
+		char ***commands;
+		int i;
+
 		if (isatty_flag)
 			_puts("$ ");
 		if (_getline(&line, &buf, stdin) == -1)
@@ -56,8 +59,15 @@ int main(int argc, char **argv, char **env)
 		if (line[_strlen(line) - 1] == '\n')
 			line[_strlen(line) - 1] = '\0';
 		args = tokenize_line(line);
-		execute(args);
-		free(args);
+		commands = split_commands(args);
+		for (i = 0; commands[i] != NULL; i++)
+		{
+			char **command = commands[i];
+
+			execute(command);
+		}
+
+		free_commands(commands);
 	}
 	return (0);
 }
