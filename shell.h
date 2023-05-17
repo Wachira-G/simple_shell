@@ -57,5 +57,6 @@ int env_func(char **args);
 
 /* Path */
 char *get_path(char *command);
+char *get_filename(char *path);
 
 #endif

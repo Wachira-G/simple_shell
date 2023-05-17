@@ -8,7 +8,7 @@
  */
 char *get_path(char *command)
 {
-	char *path = _getenv("PATH");
+	char *path = getenv("PATH");
 	char *path_cpy = malloc(_strlen(path) + 1);
 	char *dir = NULL;
 	char *full_path = NULL;
@@ -35,11 +35,25 @@ char *get_path(char *command)
 	return (NULL);
 }
 
+char *get_filename(char *path)
+{
+    char* filename = strrchr(path, '/');
+    if (filename == NULL)
+    {
+        return strdup(path);
+    }
+    else
+    {
+        return strdup(filename + 1);
+    }
+}
+
+
 int _sprintf(char *str, const char *format, ...)
 {
 	va_list arg;
 	int written = 0;
-	char *s, c, *p;
+	char *s, *p;
 	int d;
 
 	va_start(arg, format);
@@ -57,29 +71,30 @@ int _sprintf(char *str, const char *format, ...)
 		switch (*format)
 		{
 		case 'c':
-			c = va_arg(arg, int);
-			*str++ = c;
-			written++;
+			{
+				char c = va_arg(arg, int);
+				*str++ = c;
+				written++;
+			}
 			break;
 		case 'd':
 			d = va_arg(arg, int);
-			p = (char *)malloc(12);
-			_itoa(d, p);
-			s = p;
-			while (*s)
-			{
-				*str++ = *s++;
-				written++;
+			p = (char *)malloc(32);
+			if (p == NULL) {
+				va_end(arg);
+				return -1;
 			}
+			snprintf(p, 32, "%d", d);
+			written += strlen(p);
+			strcpy(str, p);
+			str += strlen(p);
 			free(p);
 			break;
 		case 's':
 			s = va_arg(arg, char *);
-			while (*s)
-			{
-				*str++ = *s++;
-				written++;
-			}
+			written += strlen(s);
+			strcpy(str, s);
+			str += strlen(s);
 			break;
 		default:
 			*str++ = *format;
@@ -90,5 +105,5 @@ int _sprintf(char *str, const char *format, ...)
 	}
 	*str = '\0';
 	va_end(arg);
-	return (written);
+	return written;
 }
