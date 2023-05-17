@@ -11,7 +11,7 @@ void execute_external_command(char **args)
 	pid_t pid;
 	int status;
 	char *command = get_filename(args[0]);
-	char *path, char *env[] = {"HOME", NULL};
+	char *path, *env[] = {"HOME", NULL};
 
 	path = get_path(command);
 	if (path == NULL)

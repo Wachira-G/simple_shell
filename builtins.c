@@ -165,7 +165,7 @@ int cd_func(char **args)
  */
 int env_func(char **env)
 {
-	char **ptr = args, *name = NULL;
+	char **ptr = env, *name = NULL;
 	ssize_t nwrite;
 	size_t len = 0;
 
@@ -192,6 +192,12 @@ int env_func(char **env)
 			}
 		}
 		ptr++;
+	}
+	nwrite = write(STDOUT_FILENO, "\n", 1);
+	if (nwrite == -1)
+	{
+		perror("name write fail: ");
+		return (1);
 	}
 	return (0);
 }
