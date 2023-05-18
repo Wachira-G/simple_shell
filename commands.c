@@ -1,12 +1,15 @@
 #include "shell.h"
 
 /**
- *execute_external_command - Executes external commands.
- *@args: Pointer to string arguments.
+ * execute_external_command - Executes external commands.
+ * @args: Pointer to string arguments.
+ * @shell_name: name of shell.
+ * @line_number: line number of the current command
  *
  *Return: void.
  */
-void execute_external_command(char **args)
+void execute_external_command(char **args,
+		char *shell_name, size_t line_number)
 {
 	pid_t pid;
 	int status;
@@ -16,8 +19,12 @@ void execute_external_command(char **args)
 	path = get_path(command);
 	if (path == NULL)
 	{
+		_puts(shell_name);
+		_puts(": ");
+		write(STDOUT_FILENO, line_number, line_number);
+		_puts(": ");
 		_puts(command);
-		_puts(": command not found\n");
+		_puts(": not found\n");
 		free(command);
 		return;
 	}

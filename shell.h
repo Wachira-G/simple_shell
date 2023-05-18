@@ -23,9 +23,10 @@ int _read_char(FILE *stream, char *c);
 
 char *shell_strtok(char *str_line, const char *delimiter);
 
-int execute(char **args, char **env);
-void handle_shell_operators(char **args);
-void execute_external_command(char **args);
+int execute(char **args, char **env, char *shell_name, size_t line_number);
+void handle_shell_operators(char **args, char *shell_name, size_t line_number);
+void execute_external_command(char **args,
+		char *shell_name, size_t line_number);
 
 /** Tokenize string line */
 char **tokenize_line(char *line);

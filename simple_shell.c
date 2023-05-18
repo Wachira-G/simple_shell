@@ -38,6 +38,7 @@ int main(int argc, char **argv, char **env)
 	size_t buf = 0;
 	int isatty_flag = isatty(STDIN_FILENO);
 	char *line = NULL, **args = NULL;
+	size_t line_number = 1;
 
 	(void)argc, (void)argv;
 
@@ -65,9 +66,9 @@ int main(int argc, char **argv, char **env)
 		{
 			char **command = commands[i];
 
-			execute(command, env);
+			execute(command, env, argv[0], line_number);
 		}
-
+		line_number++;
 		free_commands(commands);
 	}
 	return (0);
