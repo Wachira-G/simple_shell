@@ -75,3 +75,44 @@ char *_strdup(char *str)
 
 	return (duplicate);
 }
+
+
+char *intoa(int num)
+{
+	int temp, dig_num_count, sign, i = 0;
+	char *str;
+	bool is_neg = false;
+
+	if (num < 0)
+	{
+		is_neg = true;
+		num = -num;
+	}
+
+	temp = num;
+	dig_num_count = 0;
+	do {
+		dig_num_count++;
+		temp /= 10;
+	} while (temp != 0);
+
+	sign = is_neg ? 1 : 0;
+	str = (char *) malloc(sizeof(char) * (dig_num_count + sign + 1));
+	if (str == NULL)
+	{
+		return (NULL);
+	}
+	while (num != 0)
+	{
+		str[i++] = (char)((num % 10) + '0');
+		num /= 10;
+	}
+
+	if (is_neg)
+	{
+		str[i++] = '-';
+	}
+	str[i] = '\0';
+	reverse(str);
+	return (str);
+}

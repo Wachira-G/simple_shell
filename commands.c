@@ -9,7 +9,7 @@
  *Return: void.
  */
 void execute_external_command(char **args,
-		char *shell_name, size_t line_number)
+		char *shell_name, int line_number)
 {
 	pid_t pid;
 	int status;
@@ -21,7 +21,7 @@ void execute_external_command(char **args,
 	{
 		_puts(shell_name);
 		_puts(": ");
-		write(STDOUT_FILENO, line_number, line_number);
+		_puts(intoa(line_number));
 		_puts(": ");
 		_puts(command);
 		_puts(": not found\n");

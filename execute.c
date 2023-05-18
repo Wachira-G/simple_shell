@@ -9,7 +9,7 @@
  *
  *Return: An int inticating success or failer.
  */
-int execute(char **args, char **env, char *shell_name, size_t line_number)
+int execute(char **args, char **env, char *shell_name, int line_number)
 {
 	char *command = args[0];
 

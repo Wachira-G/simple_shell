@@ -11,6 +11,7 @@
 #include<sys/wait.h>
 #include <stdarg.h>
 #include <errno.h>
+#include <stdbool.h>
 
 #define LINE_BUF_SIZE 128
 #define BUFF_SIZE 1024
@@ -23,10 +24,10 @@ int _read_char(FILE *stream, char *c);
 
 char *shell_strtok(char *str_line, const char *delimiter);
 
-int execute(char **args, char **env, char *shell_name, size_t line_number);
-void handle_shell_operators(char **args, char *shell_name, size_t line_number);
+int execute(char **args, char **env, char *shell_name, int line_number);
+void handle_shell_operators(char **args, char *shell_name, int line_number);
 void execute_external_command(char **args,
-		char *shell_name, size_t line_number);
+		char *shell_name, int line_number);
 
 /** Tokenize string line */
 char **tokenize_line(char *line);
@@ -64,6 +65,8 @@ int env_func(char **args);
 char *get_path(char *command);
 char *get_filename(char *path);
 int _sprintf(char *str, const char *format, ...);
+
+char *intoa(int num);
 
 /* sprintf helper */
 void handle_character(char **str, int *written, va_list *arg);

@@ -38,7 +38,7 @@ int main(int argc, char **argv, char **env)
 	size_t buf = 0;
 	int isatty_flag = isatty(STDIN_FILENO);
 	char *line = NULL, **args = NULL;
-	size_t line_number = 1;
+	int line_number = 1;
 
 	(void)argc, (void)argv;
 

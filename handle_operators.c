@@ -8,7 +8,7 @@
  *
  *Return: void.
  */
-void handle_shell_operators(char **args, char *shell_name, size_t line_number)
+void handle_shell_operators(char **args, char *shell_name, int line_number)
 {
 	execute_external_command(args, shell_name, line_number);
 }
