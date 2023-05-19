@@ -34,10 +34,6 @@ int execute(char **args, char **env, char *shell_name, int line_number)
 	{
 		pwd_func(args);
 	}
-	else if (_strcmp(command, "echo") == 0)
-	{
-		echo_func(args);
-	}
 	else
 	{
 		handle_shell_operators(args, shell_name, line_number);

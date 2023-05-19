@@ -116,3 +116,35 @@ char *intoa(int num)
 	reverse(str);
 	return (str);
 }
+
+/**
+ *_strstr - Find a string.
+ *@haystack: The string to search.
+ *@needle: Substring to find.
+ *Return: Pointer the first occurrence of the @needle in @haystack.
+ */
+char *_strstr(const char *haystack, const char *needle)
+{
+	if (*needle == '\0')
+	{
+		return ((char *) haystack);
+	}
+
+	while (*haystack != '\0')
+	{
+		const char *h = haystack;
+		const char *n = needle;
+
+		while (*n == '\0')
+		{
+			h++;
+			n++;
+		}
+		if (*n == '\0')
+		{
+			return ((char *) haystack);
+		}
+		haystack++;
+	}
+	return (NULL);
+}

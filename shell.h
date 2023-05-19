@@ -49,6 +49,7 @@ int _strncmp(const char *str1, char *str2, size_t size);
 int _atoi(char *s);
 char *_strcat(char *dest, char *src);
 char *_strdup(char *str);
+char *_strstr(const char *haystack, const char *needle);
 
 /* Environmental */
 char *_getenv(char *env_name);
@@ -67,6 +68,9 @@ char *get_filename(char *path);
 int _sprintf(char *str, const char *format, ...);
 
 char *intoa(int num);
+void replace_variables(char **command, int exit_status, int process_id);
+char* perform_variable_replacement(char* arg, char* variable, char* replacement);
+char* create_replacement_string(int value);
 
 /* sprintf helper */
 void handle_character(char **str, int *written, va_list *arg);
