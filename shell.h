@@ -54,6 +54,7 @@ char *_strstr(const char *haystack, const char *needle);
 /* Environmental */
 char *_getenv(char *env_name);
 int _setenv(char *name, char *value, int over);
+int _unsetenv(char *name);
 
 /* builtins */
 int cd_func(char **args);
@@ -69,8 +70,9 @@ int _sprintf(char *str, const char *format, ...);
 
 char *intoa(int num);
 void replace_variables(char **command, int exit_status, int process_id);
-char* perform_variable_replacement(char* arg, char* variable, char* replacement);
-char* create_replacement_string(int value);
+char *perform_variable_replacement(char *arg, char *variable,
+		char *replacement);
+char *create_replacement_string(int value);
 
 /* sprintf helper */
 void handle_character(char **str, int *written, va_list *arg);

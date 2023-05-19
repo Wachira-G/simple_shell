@@ -76,7 +76,11 @@ char *_strdup(char *str)
 	return (duplicate);
 }
 
-
+/**
+ * intoa - converts an int into a string
+ * @int: number to convert
+ * Return: ponter to string
+ */
 char *intoa(int num)
 {
 	int temp, dig_num_count, sign, i = 0;

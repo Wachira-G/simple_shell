@@ -10,7 +10,6 @@ static void sig_handler(int signo)
 {
 	if (signo == SIGINT)
 	{
-		_puts("SIGNINT received, exiting...\n$ ");
 		exit(128 + signo);
 	}
 	else if (signo == SIGQUIT)
