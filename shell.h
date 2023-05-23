@@ -50,11 +50,13 @@ int _atoi(char *s);
 char *_strcat(char *dest, char *src);
 char *_strdup(char *str);
 char *_strstr(const char *haystack, const char *needle);
+char *_strchr(char *str, int character);
 
 /* Environmental */
 char *_getenv(char *env_name);
 int _setenv(char *name, char *value, int over);
 int _unsetenv(char *name);
+int _putenv(char *string);
 
 /* builtins */
 int cd_func(char **args);

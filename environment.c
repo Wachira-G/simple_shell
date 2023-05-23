@@ -35,7 +35,7 @@ int _setenv(char *name, char *value, int over)
 	int res;
 
 	if (name == NULL || _strlen(name) == 0 ||
-	strchr(name, '=') != NULL) /* TODO  strchr func*/
+	_strchr(name, '=') != NULL) /* TODO  strchr func*/
 	{
 		return (-1);
 	}

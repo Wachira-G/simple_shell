@@ -10,6 +10,7 @@ static void sig_handler(int signo)
 {
 	if (signo == SIGINT)
 	{
+		_puts("\n");
 		exit(128 + signo);
 	}
 	else if (signo == SIGQUIT)
@@ -40,7 +41,6 @@ int main(int argc, char **argv, char **env)
 	int line_number = 1;
 
 	(void)argc, (void)argv;
-
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
 
@@ -72,7 +72,7 @@ int main(int argc, char **argv, char **env)
 		for (i = 0; args[i] != NULL; i++)
 			free(args[i]);
 		free(args);
-		free(line);
 	}
+	free(line);
 	return (0);
 }

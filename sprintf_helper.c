@@ -1,10 +1,10 @@
 #include "shell.h"
 
 /**
- *write_char - character
- *@str: string
- *@c: character.
- *Return: 1. 
+ * write_char - character
+ * @str: string
+ * @c: character.
+ * Return: 1.
  */
 int write_char(char **str, char c)
 {
@@ -14,14 +14,15 @@ int write_char(char **str, char c)
 }
 
 /**
- *write_string - String
- *@str: string
- *@s: pointer to char
- *Return: formated string. 
+ * write_string - String
+ * @str: string
+ * @s: pointer to char
+ * Return: formated string.
  */
 int write_string(char **str, const char *s)
 {
 	int written = 0;
+
 	while (*s)
 	{
 		**str = *s;
@@ -33,14 +34,14 @@ int write_string(char **str, const char *s)
 }
 
 /**
- *write_integer - write interger. 
- *@str 
- *@d: integer input.
- *Return: formated int. 
+ * write_integer - write interger.
+ * @str: string
+ * @d: integer input.
+ * Return: formated int.
  */
 int write_integer(char **str, int d)
 {
-    int written;
+	int written;
 	char *p = (char *)malloc(12);
 
 	_itoa(d, p);
