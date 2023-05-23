@@ -75,8 +75,11 @@ char *perform_variable_replacement(char *arg, char *variable,
 char *create_replacement_string(int value);
 
 /* sprintf helper */
-void handle_character(char **str, int *written, va_list *arg);
-void handle_integer(char **str, int *written, va_list *arg);
-void handle_string(char **str, int *written, va_list *arg);
+int write_integer(char **str, int d);
+int write_char(char **str, char c);
+int write_string(char **str, const char *s);
+
+void external_comm_error(char *command, char *shell_name, int line_number);
+void execve_error(char *command, char *path);
 
 #endif

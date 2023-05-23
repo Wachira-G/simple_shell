@@ -73,46 +73,44 @@ char **tokenize_line(char *line)
  */
 char ***split_commands(char **tokens)
 {
-	int buffer_size = MAX_TOKENS;
-	char ***commands = malloc(sizeof(char **) * buffer_size);
-	int i, num_commands = 0, num_tokens_in_command = 0;
+    int buffer_size = MAX_TOKENS;
+    char ***commands = malloc(sizeof(char **) * buffer_size);
+    int i, num_commands = 0, num_tokens_in_command = 0;
 
-	char **current_command = malloc(sizeof(char *) * MAX_TOKENS);
+    char **current_command = malloc(sizeof(char *) * MAX_TOKENS);
 
-	for (i = 0; tokens[i] != NULL; i++)
-	{
-		if (strcmp(tokens[i], ";") == 0)
-		{
-			current_command[num_tokens_in_command] = NULL;
-			commands[num_commands++] = current_command;
+    for (i = 0; tokens[i] != NULL; i++)
+    {
+        if (_strcmp(tokens[i], ";") == 0)
+        {
+            current_command[num_tokens_in_command] = NULL;
+            commands[num_commands++] = current_command;
 
-			if (num_commands >= buffer_size)
-			{
-				buffer_size += MAX_TOKENS;
-				commands = _realloc(commands, sizeof(char **) *
-						    buffer_size);
-			}
+            if (num_commands >= buffer_size)
+            {
+                buffer_size += MAX_TOKENS;
+                commands = _realloc(commands, sizeof(char **) * buffer_size);
+            }
 
-			current_command = malloc(sizeof(char *) * MAX_TOKENS);
-			num_tokens_in_command = 0;
-		}
-		else
-		{
-			current_command[num_tokens_in_command++] =
-				strdup(tokens[i]);
-		}
-	}
-	current_command[num_tokens_in_command] = NULL;
-	commands[num_commands++] = current_command;
+            current_command = malloc(sizeof(char *) * MAX_TOKENS);
+            num_tokens_in_command = 0;
+        }
+        else
+        {
+            current_command[num_tokens_in_command++] = _strdup(tokens[i]);
+        }
+    }
+    current_command[num_tokens_in_command] = NULL;
+    commands[num_commands++] = current_command;
 
-	if (num_commands >= buffer_size)
-	{
-		buffer_size++;
-		commands = _realloc(commands, sizeof(char **) * buffer_size);
-	}
-	commands[num_commands] = NULL;
+    if (num_commands >= buffer_size)
+    {
+        buffer_size++;
+        commands = _realloc(commands, sizeof(char **) * buffer_size);
+    }
+    commands[num_commands] = NULL;
 
-	return (commands);
+    return commands;
 }
 
 /**

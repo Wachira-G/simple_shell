@@ -72,7 +72,7 @@ int main(int argc, char **argv, char **env)
 		for (i = 0; args[i] != NULL; i++)
 			free(args[i]);
 		free(args);
-		/* TODO free(line); */
+		free(line);
 	}
 	return (0);
 }
