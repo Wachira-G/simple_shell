@@ -8,7 +8,7 @@
  */
 char *get_path(char *command)
 {
-	char *path = getenv("PATH");
+	char *path = _getenv("PATH");
 	char *path_cpy = malloc(_strlen(path) + 1);
 	char *dir = NULL;
 	char *full_path = NULL;
@@ -42,7 +42,7 @@ char *get_path(char *command)
  */
 char *get_filename(char *path)
 {
-	char *filename = strrchr(path, '/');
+	char *filename = strrchr(path, '/'); /* TODO */
 
 	if (filename == NULL)
 	{
@@ -64,8 +64,6 @@ int _sprintf(char *str, const char *format, ...)
 {
 	va_list arg;
 	int written = 0;
-	char *s, c, *p;
-	int d;
 
 	va_start(arg, format);
 
@@ -73,8 +71,7 @@ int _sprintf(char *str, const char *format, ...)
 	{
 		if (*format != '%')
 		{
-			*str++ = *format++;
-			written++;
+			written += write_char(&str, *format++);
 			continue;
 		}
 		format++;
@@ -82,38 +79,21 @@ int _sprintf(char *str, const char *format, ...)
 		switch (*format)
 		{
 		case 'c':
-			c = va_arg(arg, int);
-			*str++ = c;
-			written++;
+			written += write_char(&str, va_arg(arg, int));
 			break;
 		case 'd':
-			d = va_arg(arg, int);
-			p = (char *)malloc(12);
-			_itoa(d, p);
-			s = p;
-			while (*s)
-			{
-				*str++ = *s++;
-				written++;
-			}
-			free(p);
+			written += write_integer(&str, va_arg(arg, int));
 			break;
 		case 's':
-			s = va_arg(arg, char *);
-			while (*s)
-			{
-				*str++ = *s++;
-				written++;
-			}
+			written += write_string(&str, va_arg(arg, char *));
 			break;
 		default:
-			*str++ = *format;
-			written++;
+			written += write_char(&str, *format);
 			break;
 		}
 		format++;
 	}
 	*str = '\0';
 	va_end(arg);
-	return (written);
+	return written;
 }

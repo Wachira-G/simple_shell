@@ -76,7 +76,11 @@ char *_strdup(char *str)
 	return (duplicate);
 }
 
-
+/**
+ * intoa - converts an int into a string
+ * @int: number to convert
+ * Return: ponter to string
+ */
 char *intoa(int num)
 {
 	int temp, dig_num_count, sign, i = 0;
@@ -123,28 +127,27 @@ char *intoa(int num)
  *@needle: Substring to find.
  *Return: Pointer the first occurrence of the @needle in @haystack.
  */
-char *_strstr(const char *haystack, const char *needle)
+char *_strstr(const char* haystack, const char* needle)
 {
-	if (*needle == '\0')
-	{
-		return ((char *) haystack);
-	}
+    if (*needle == '\0') {
+        return (char*)haystack;
+    }
 
-	while (*haystack != '\0')
-	{
-		const char *h = haystack;
-		const char *n = needle;
+    while (*haystack != '\0') {
+        const char* h = haystack;
+        const char* n = needle;
 
-		while (*n == '\0')
-		{
-			h++;
-			n++;
-		}
-		if (*n == '\0')
-		{
-			return ((char *) haystack);
-		}
-		haystack++;
-	}
-	return (NULL);
+        while (*n != '\0' && *h == *n) {
+            h++;
+            n++;
+        }
+
+        if (*n == '\0') {
+            return (char*)haystack;
+        }
+
+        haystack++;
+    }
+
+    return (NULL);
 }

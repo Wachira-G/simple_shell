@@ -163,9 +163,9 @@ int cd_func(char **args)
  * limitation:
  * this does not update environment in case of new process or in case of chdir
  */
-int env_func(char **env)
+int env_func(__attribute__((unused)) char **env)
 {
-	char **ptr = env, *name = NULL;
+	char **ptr = __environ, *name = NULL;
 	ssize_t nwrite;
 	size_t len = 0;
 

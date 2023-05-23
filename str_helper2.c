@@ -44,8 +44,9 @@ char *_strcat(char *dest, char *src)
 	while (dest[dest_len] != '\0')
 		dest_len++;
 
-	for (i = 0; i <= dest_len; i++)
+	for (i = 0; i <= src_len; i++)
 		dest[dest_len + i] = src[i];
+	dest[dest_len + i] = '\0';
 	return (dest);
 }
 
