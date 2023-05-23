@@ -69,6 +69,10 @@ int main(int argc, char **argv, char **env)
 		}
 		line_number++;
 		free_commands(commands);
+		for (i = 0; args[i] != NULL; i++)
+			free(args[i]);
+		free(args);
+		/* TODO free(line); */
 	}
 	return (0);
 }

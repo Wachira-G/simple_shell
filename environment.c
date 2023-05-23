@@ -31,35 +31,34 @@ char *_getenv(char *env_name)
  */
 int _setenv(char *name, char *value, int over)
 {
-	char *existing, *new_env;
+	char *existing = NULL, *new_env = NULL;
 	int res;
 
 	if (name == NULL || _strlen(name) == 0 ||
-	strchr(name, '=') != NULL)
+	strchr(name, '=') != NULL) /* TODO  strchr func*/
 	{
 		return (-1);
 	}
-
 	existing = _getenv(name);
 	if (existing != NULL && !over)
 	{
 		return (0);
 	}
-
 	new_env = malloc(_strlen(name) + _strlen(value) + 2);
 	if (new_env == NULL)
 	{
+		perror("malloc fail _setenv: ");
 		free(new_env);
 		return (-1);
 	}
-
 	_sprintf(new_env, "%s=%s", name, value);
-	res = putenv(new_env);
+	res = putenv(new_env); /*TODO*/
 	if (res != 0)
 	{
 		free(new_env);
 		return (-1);
 	}
+	/* TODO free(new_env); */
 	return (0);
 }
 

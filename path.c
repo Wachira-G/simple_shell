@@ -8,7 +8,7 @@
  */
 char *get_path(char *command)
 {
-	char *path = getenv("PATH");
+	char *path = _getenv("PATH");
 	char *path_cpy = malloc(_strlen(path) + 1);
 	char *dir = NULL;
 	char *full_path = NULL;
@@ -42,7 +42,7 @@ char *get_path(char *command)
  */
 char *get_filename(char *path)
 {
-	char *filename = strrchr(path, '/');
+	char *filename = strrchr(path, '/'); /* TODO */
 
 	if (filename == NULL)
 	{
@@ -105,7 +105,7 @@ int _sprintf(char *str, const char *format, ...)
 				*str++ = *s++;
 				written++;
 			}
-			break;
+			break; /* this breaks something */
 		default:
 			*str++ = *format;
 			written++;

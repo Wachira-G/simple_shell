@@ -51,7 +51,7 @@ char **tokenize_line(char *line)
 				      buffer_size + BUFF_SIZE);
 		}
 
-		buffer[num_tokens] = token;
+		buffer[num_tokens] = _strdup(token); /*added strdup */
 		num_tokens++;
 		token = shell_strtok(NULL, TOKEN_DELIMETER);
 	}
@@ -62,6 +62,7 @@ char **tokenize_line(char *line)
 	}
 
 	buffer[num_tokens] = NULL;
+	/* free(line); original line after tokenization */
 	return (buffer);
 }
 

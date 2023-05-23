@@ -49,6 +49,7 @@ void execute_external_command(char **args,
 				_puts("execve: ");
 				_puts(strerror(errno));
 				_puts("\n");
+				free(path);
 				exit(EXIT_FAILURE);
 			}
 			free(path);
@@ -56,6 +57,7 @@ void execute_external_command(char **args,
 		else if (pid < 0)
 		{
 			perror("Fork error");
+			free(path);
 			exit(EXIT_FAILURE);
 		}
 		else
@@ -63,10 +65,12 @@ void execute_external_command(char **args,
 			if (waitpid(pid, &status, 0) == -1)
 			{
 				perror("waitpid");
+				free(path);
 				exit(EXIT_FAILURE);
 			}
 		}
 	}
+	free(path);
 	free(command);
 }
 
