@@ -6,12 +6,20 @@
  */
 void exit_func(char **args)
 {
-	if (args[1] == NULL)
-		exit(0);
-	else
+	int status = 0;
+
+	if (args[1] != NULL)
 	{
-		exit(_atoi(args[1]));
+		status = _atoi(args[1]);
+		if (status < 0)
+		{
+			status = 2;
+			perror("Illegal number: ");
+			_puts(args[1]);
+			_puts("\n");
+		}
 	}
+	exit(status);
 }
 
 /**
