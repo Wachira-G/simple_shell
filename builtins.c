@@ -115,8 +115,7 @@ int cd_func(char **args)
 {
 	char *new_pwd, *old_pwd = _getenv("OLDPWD");
 
-	/* cd alone or '~' */
-	if (args[1] == NULL || _strcmp(args[1], "~") == 0)
+	if (args[1] == NULL || _strcmp(args[1], "~") == 0 || _strlen(args[1]) == 0)
 	{
 		new_pwd = _getenv("HOME");
 		if (new_pwd == NULL)
@@ -124,7 +123,7 @@ int cd_func(char **args)
 			perror("cd - HOME not set: ");
 			return (1);
 		}
-	} /* cd - */
+	}
 	else if (_strcmp(args[1], "-") == 0)
 	{
 		if (old_pwd == NULL)
@@ -133,25 +132,26 @@ int cd_func(char **args)
 			return (1);
 		}
 		new_pwd = old_pwd;
-	} /* cd path  -- TODO relook into below bit and chdir */
+	}
 	else
 	{
-		/* new_pwd  = realpath(args[i], NULL); */
-		new_pwd = args[1];
+		new_pwd = _strdup(args[1]);
 		if (new_pwd == NULL)
 		{
-			perror("cd - path not set: ");
-			return (1);
+			error("cd - path not set: ", 1);
 		}
 	}
 	if (chdir(new_pwd) != 0)
 	{
 		perror("cd - chdir fail: ");
+		if (args[1] != NULL && _strlen(args[1]) > 0)
+			free(new_pwd);
 		return (1);
 	}
 	_setenv("OLDPWD", _getenv("PWD"), 1);
 	_setenv("PWD", new_pwd, 1);
-	/* free(new_pwd); if set by realpath */
+	if (args[1] != NULL && _strlen(args[1]) > 0)
+		free(new_pwd);
 	return (0);
 }
 
