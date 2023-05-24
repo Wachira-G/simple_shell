@@ -33,6 +33,8 @@ void execute_external_command(char **args, char *shell_name, int line_number)
 			if (execve(path, args, env) == -1)
 				execve_error(command, path); /* double exec?*/
 			free(path);
+			free(command);
+			exit(EXIT_FAILURE);
 		}
 		else if (pid < 0)
 		{
@@ -136,7 +138,6 @@ void replace_variables(char **command, int exit_status, int process_id)
 			char *new_arg = perform_variable_replacement(arg, "$?", exit_status_str);
 
 			free(exit_status_str);
-			free(command[i]);
 			command[i] = new_arg;
 		}
 
@@ -146,9 +147,9 @@ void replace_variables(char **command, int exit_status, int process_id)
 			char *process_id_str = create_replacement_string(process_id);
 			char *new_arg = perform_variable_replacement(arg, "$$", process_id_str);
 
-			free(process_id_str);
 			free(command[i]);
 			command[i] = new_arg;
+			free(process_id_str);
 		}
 	}
 }
