@@ -83,5 +83,7 @@ int write_string(char **str, const char *s);
 
 void external_comm_error(char *command, char *shell_name, int line_number);
 void execve_error(char *command, char *path);
+int error(char *str, int value);
+void free_waitpit(char *command, char *path);
 
 #endif

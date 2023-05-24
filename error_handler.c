@@ -38,3 +38,28 @@ void execve_error(char *command, char *path)
 	free(command);
 	exit(EXIT_FAILURE);
 }
+
+/**
+ *error - Print error message
+ *@str: message.
+ *@value: return value.
+ *Return: Int value specified.
+ */
+int error(char *str, int value)
+{
+	perror(str);
+	return (value);
+}
+
+/**
+ *free_waitpit - print error and free mem.
+ *@command: Command.
+ *@path: path variable.
+ */
+void free_waitpit(char *command, char *path)
+{
+	perror("waitpid");
+	free(path);
+	free(command);
+	exit(EXIT_FAILURE);
+}

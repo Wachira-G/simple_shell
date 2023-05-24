@@ -36,19 +36,13 @@ void execute_external_command(char **args, char *shell_name, int line_number)
 		}
 		else if (pid < 0)
 		{
-			perror("Fork error");
-			free(path);
-			free(command);
-			exit(EXIT_FAILURE);
+			free_waitpit(command, path);
 		}
 		else
 		{
 			if (waitpid(pid, &status, 0) == -1)
 			{
-				perror("waitpid");
-				free(path);
-				free(command);
-				exit(EXIT_FAILURE);
+				free_waitpit(command, path);
 			}
 		}
 	}

@@ -79,21 +79,18 @@ int _unsetenv(char *name)
 
 	if (name == NULL || _strlen(name) == 0 || strchr(name, '=') != NULL)
 	{ /* invalid input: name = (null|empty|contain =). TODO set errno her*/
-		perror(" invalid environment variable name: ");
-		return (-1);
+		error(" invalid environment variable name: ", -1);
 	}
 	if (_getenv(name) == NULL)
 	{ /* if environment anme existe */
-		perror("environment variable not found: "); /* set errno TODO*/
-		return (-1);
+		error("environment variable not found: ", -1); /* set errno TODO*/
 	}
 	while (env[env_count] != NULL) /* count no of environ variables */
 		env_count++;
 	new_env = malloc(sizeof(char *) * (env_count + 1)); /* alloc mem env*/
 	if (new_env == NULL)
 	{
-		perror("memory allocation fail: ");
-		return (-1);
+		error("memory allocation fail: ", -1);
 	}
 	for (i = 0; i < env_count; i++)
 	{       /* copy environment varilables except the one to  be unset */
