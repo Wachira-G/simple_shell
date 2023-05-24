@@ -19,8 +19,8 @@ void external_comm_error(char *command, char *shell_name, int line_number)
 	}
 	else
 	{
-		_puts(command);
-		_puts(": command not found\n");
+		_puts(shell_name);
+		_puts(": No such file or directory\n");
 	}
 }
 

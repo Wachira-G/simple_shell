@@ -1,5 +1,8 @@
 #include "shell.h"
 
+#include <stdlib.h>
+#include <string.h>
+
 /**
  * _putenv - implements the putenv function
  * @string: name=value string to set environment with
@@ -9,38 +12,33 @@
 int _putenv(char *string)
 {
 	size_t num_env, name_len;
-	char **new_env, **env;
+	char **env, **new_env;
 
 	if (string == NULL || _strchr(string, '=') == NULL)
 		return (-1);
+
 	name_len = _strchr(string, '=') - string;
 	env = environ;
+
 	while (*env != NULL)
 	{
 		if (_strncmp(*env, string, name_len) == 0 && (*env)[name_len] == '=')
 		{
-			_strcpy(*env, string);
+			*env = string;
 			return (0);
 		}
 		env++;
 	}
+
 	num_env = env - environ;
-	new_env = _realloc(NULL, (num_env + 2) * sizeof(char *));
+	new_env = _realloc(environ, (num_env + 2) * sizeof(char *));
 	if (new_env == NULL)
 		return (-1);
-	free_env(new_env, num_env);
-	new_env[num_env] = _strdup(string);
-	if (new_env[num_env] == NULL)
-	{
-		size_t i;
 
-		for (i = 0; i < num_env; i++)
-			free(new_env[i]);
-		free(new_env);
-		return (-1);
-	}
+	new_env[num_env] = string;
 	new_env[num_env + 1] = NULL;
 	environ = new_env;
+
 	return (0);
 }
 

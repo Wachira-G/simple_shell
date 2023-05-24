@@ -150,8 +150,6 @@ int cd_func(char **args)
 	}
 	_setenv("OLDPWD", _getenv("PWD"), 1);
 	_setenv("PWD", new_pwd, 1);
-	if (args[1] != NULL && _strlen(args[1]) > 0)
-		free(new_pwd);
 	return (0);
 }
 
