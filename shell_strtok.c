@@ -21,18 +21,30 @@ char *shell_strtok(char *str_line, const char *delimiter)
 	{
 		return (NULL);
 	}
-
+	/* skip leading spaces */
+	while (*next_pos == ' ')
+		next_pos++;
 	token = next_pos;
 	pos_end = _strpbrk(next_pos, delimiter);
 	if (pos_end != NULL)
 	{
-		*pos_end = '\0';
-		next_pos = pos_end + 1;
+		/* trim trailing spaces */
+		while (pos_end > token && *(pos_end - 1) == ' ')
+			pos_end--;
+		if (pos_end != NULL)
+		{
+			*pos_end = '\0';
+			next_pos = pos_end + 1;
+		}
 	}
 	else
 	{
 		next_pos = NULL;
 	}
-
+	/* Skip remaining spaces until the next token */
+	while (next_pos != NULL && *next_pos == ' ')
+	{
+		next_pos++;
+	}
 	return (token);
 }

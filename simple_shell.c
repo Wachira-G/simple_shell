@@ -10,12 +10,13 @@ static void sig_handler(int signo)
 {
 	if (signo == SIGINT)
 	{
-		_puts("\n$ ");
+		_puts("\n");
+		exit(128 + signo);
 	}
 	else if (signo == SIGQUIT)
 	{
 		_puts("Quit (core dumped)\n");
-		exit(1);
+		exit(128 + signo);
 	}
 	else if (signo == EOF)
 	{
@@ -37,14 +38,17 @@ int main(int argc, char **argv, char **env)
 	size_t buf = 0;
 	int isatty_flag = isatty(STDIN_FILENO);
 	char *line = NULL, **args = NULL;
+	int line_number = 1;
 
-	(void)argc, (void)argv, (void)env;
-
+	(void)argc, (void)argv;
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
 
 	while (1)
 	{
+		char ***commands;
+		int i;
+
 		if (isatty_flag)
 			_puts("$ ");
 		if (_getline(&line, &buf, stdin) == -1)
@@ -53,23 +57,22 @@ int main(int argc, char **argv, char **env)
 				_puts("\n");
 			exit(0);
 		}
-		if (line[strlen(line) - 1] == '\n')
-			line[strlen(line) - 1] = '\0';
+		if (line[_strlen(line) - 1] == '\n')
+			line[_strlen(line) - 1] = '\0';
 		args = tokenize_line(line);
-		if (args == NULL)
+		commands = split_commands(args);
+		for (i = 0; commands[i] != NULL; i++)
 		{
-			perror("Failed to tokenize line");
-			exit(EXIT_FAILURE);
+			char **command = commands[i];
+
+			execute(command, env, argv[0], line_number);
 		}
-		if (args[0] != NULL)
-		{
-			if (strcmp(args[0], "exit") == 0)
-			{
-				free(args);
-				exit(0);
-			}
-		}
+		line_number++;
+		free_commands(commands);
+		for (i = 0; args[i] != NULL; i++)
+			free(args[i]);
 		free(args);
 	}
+	free(line);
 	return (0);
 }
