@@ -43,7 +43,6 @@ int main(int argc, char **argv, char **env)
 	(void)argc, (void)argv;
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
-
 	while (1)
 	{
 		char ***commands;
@@ -55,6 +54,7 @@ int main(int argc, char **argv, char **env)
 		{
 			if (isatty_flag)
 				_puts("\n");
+			free(line);
 			exit(0);
 		}
 		if (line[_strlen(line) - 1] == '\n')

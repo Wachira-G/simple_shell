@@ -10,12 +10,15 @@ void external_comm_error(char *command, char *shell_name, int line_number)
 {
 	if (!isatty(STDIN_FILENO))
 	{
+		char *itoa = intoa(line_number);
+
 		_puts(shell_name);
 		_puts(": ");
-		_puts(intoa(line_number));
+		_puts(itoa);
 		_puts(": ");
 		_puts(command);
 		_puts(": not found\n");
+		free(itoa);
 	}
 	else
 	{
