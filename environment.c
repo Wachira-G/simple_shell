@@ -11,7 +11,7 @@ char *_getenv(char *env_name)
 	char **env;
 	size_t var_len = _strlen(env_name);
 
-	for (env = __environ; *env != NULL; env++)
+	for (env = environ; *env != NULL; env++)
 	{
 		if (_strncmp(env_name, *env, var_len) == 0)
 		{
@@ -52,7 +52,7 @@ int _setenv(char *name, char *value, int over)
 		return (-1);
 	}
 	_sprintf(new_env, "%s=%s", name, value);
-	res = putenv(new_env); /*TODO*/
+	res = _putenv(new_env); /*TODO*/
 	if (res != 0)
 	{
 		free(new_env);
@@ -74,7 +74,7 @@ int _setenv(char *name, char *value, int over)
  */
 int _unsetenv(char *name)
 {
-	char **new_env = NULL, **env = __environ;
+	char **new_env = NULL, **env = environ;
 	int i, new_env_index = 0, env_count = 0;
 
 	if (name == NULL || _strlen(name) == 0 || strchr(name, '=') != NULL)
@@ -110,6 +110,6 @@ int _unsetenv(char *name)
 		}
 	}  /* set last element of the new environmnt array ot null */
 	new_env[new_env_index] = NULL;
-	__environ = new_env;
+	environ = new_env;
 	return (0);
 }

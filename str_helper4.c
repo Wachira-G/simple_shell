@@ -8,14 +8,13 @@
  */
 int _putenv(char *string)
 {
-	size_t name_len, num_env;
-	char **env = NULL, **new_env = NULL;
+	size_t num_env, name_len;
+	char **new_env, **env;
 
 	if (string == NULL || _strchr(string, '=') == NULL)
 		return (-1);
-
 	name_len = _strchr(string, '=') - string;
-	env = __environ;
+	env = environ;
 	while (*env != NULL)
 	{
 		if (_strncmp(*env, string, name_len) == 0 && (*env)[name_len] == '=')
@@ -25,17 +24,23 @@ int _putenv(char *string)
 		}
 		env++;
 	}
-
-	num_env = env - __environ;
-
-	new_env = _realloc(__environ, (num_env + 2) * sizeof(char *)); /*!!!*/
+	num_env = env - environ;
+	new_env = _realloc(NULL, (num_env + 2) * sizeof(char *));
 	if (new_env == NULL)
 		return (-1);
-	__environ = new_env;
+	free_env(new_env, num_env);
+	new_env[num_env] = _strdup(string);
+	if (new_env[num_env] == NULL)
+	{
+		size_t i;
 
-	__environ[num_env] = _strdup(string);
-	__environ[num_env + 1] = NULL;
-
+		for (i = 0; i < num_env; i++)
+			free(new_env[i]);
+		free(new_env);
+		return (-1);
+	}
+	new_env[num_env + 1] = NULL;
+	environ = new_env;
 	return (0);
 }
 
@@ -64,4 +69,33 @@ char *_strchr(char *str, int character)
 		str++;
 	}
 	return (NULL);
+}
+
+/**
+ *free_env - free env.
+ *@new_env: env variable.
+ *@num_env: size.
+ *Return: int status.
+ */
+int free_env(char **new_env, size_t num_env)
+{
+	size_t i;
+	int status;
+
+	for (i = 0; i < num_env; i++)
+	{
+		new_env[i] = _strdup(environ[i]);
+		if (new_env[i] == NULL)
+		{
+			size_t j;
+
+			for (j = 0; j < i; j++)
+			{
+				free(new_env[j]);
+			}
+			free(new_env);
+			status = -1;
+		}
+	}
+	return (status);
 }

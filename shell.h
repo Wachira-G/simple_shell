@@ -18,6 +18,8 @@
 #define TOKEN_DELIMETER " \t\r\n\a"
 #define MAX_TOKENS 100
 
+extern char **environ;
+
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 int _ensure_capacity(char **lineptr, size_t *n, size_t new_size);
 int _read_char(FILE *stream, char *c);
@@ -85,5 +87,6 @@ void external_comm_error(char *command, char *shell_name, int line_number);
 void execve_error(char *command, char *path);
 int error(char *str, int value);
 void free_waitpit(char *command, char *path);
+int free_env(char **new_env, size_t num_env);
 
 #endif
