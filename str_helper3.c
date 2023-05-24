@@ -104,6 +104,7 @@ char *intoa(int num)
 	str = (char *) malloc(sizeof(char) * (dig_num_count + sign + 1));
 	if (str == NULL)
 	{
+		free(str);
 		return (NULL);
 	}
 	while (num != 0)
