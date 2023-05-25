@@ -6,15 +6,39 @@
  */
 void exit_func(char **args)
 {
-	int status = 0;
+	int i = 0, status = 0;
 
-	if (args[1] != NULL)
+	if (args[1] != NULL && args[2] != NULL)
 	{
+		status = 1;
+		perror(": exit: too many arguments");
+		exit(status);
+	}
+	if (args[1] != NULL)
+	{/* check non-numerics */
+		char *str = args[0];
+		/* Check for negative sign */
+		if (str[0] == '-')
+			i = 1;
+		/* Check each character in the string */
+		for (; str[i] != '\0'; i++)
+		{
+			/* If a non-digit character is found, return false */
+			if (str[i] < '0' || str[i] > '9')
+			{
+				status = 2;
+				_puts(": exit: ");
+				_puts(args[1]);
+				perror(": numeric argument required");
+				exit(status);
+			}
+		}
+		/*if numeric */
 		status = _atoi(args[1]);
 		if (status < 0)
 		{
 			status = 2;
-			perror("Illegal number: ");
+			_puts(": exit: Illegal number: ");
 			_puts(args[1]);
 			_puts("\n");
 		}

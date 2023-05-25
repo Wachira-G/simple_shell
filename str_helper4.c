@@ -31,6 +31,7 @@ int _putenv(char *string)
 	}
 
 	num_env = env - environ;
+	new_env = malloc(sizeof(environ));
 	new_env = _realloc(environ, (num_env + 2) * sizeof(char *));
 	if (new_env == NULL)
 		return (-1);
@@ -96,4 +97,26 @@ int free_env(char **new_env, size_t num_env)
 		}
 	}
 	return (status);
+}
+
+/**
+ * _strrchr - function returns a pointer to the last occurrence
+ * of the character c in the string s.
+ * @str: string to search.
+ * @ch: character to search for.
+ * Return: pointer to last occurence of  string s;
+ */
+char *_strrchr(const char *str, int ch)
+{
+	char *last_occurrence = NULL;
+
+	while (*str != '\0')
+	{
+		if (*str == ch)
+			last_occurrence = (char *)str;
+		str++;
+	}
+	if (*str == ch)
+		return ((char *)str);
+	return (last_occurrence);
 }

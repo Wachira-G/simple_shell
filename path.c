@@ -42,7 +42,7 @@ char *get_path(char *command)
  */
 char *get_filename(char *path)
 {
-	char *filename = strrchr(path, '/'); /* TODO */
+	char *filename = _strrchr(path, '/'); /* TODO */
 
 	if (filename == NULL)
 	{

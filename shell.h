@@ -53,6 +53,7 @@ char *_strcat(char *dest, char *src);
 char *_strdup(char *str);
 char *_strstr(const char *haystack, const char *needle);
 char *_strchr(char *str, int character);
+char *_strrchr(const char *str, int ch);
 
 /* Environmental */
 char *_getenv(char *env_name);
